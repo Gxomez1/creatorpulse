@@ -10,13 +10,14 @@ import {
   updateDoc,
   increment,
 } from "firebase/firestore";
+import StarRatings from "react-star-ratings";
 
 export default function CreatorPage() {
   const router = useRouter();
   const { id } = router.query;
   const [creator, setCreator] = useState(null);
   const [reviews, setReviews] = useState([]);
-  const [newRating, setNewRating] = useState("");
+  const [newRating, setNewRating] = useState(0);
   const [newText, setNewText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [sortType, setSortType] = useState("most-liked");
@@ -52,12 +53,12 @@ export default function CreatorPage() {
     setSubmitting(true);
     try {
       await addDoc(collection(db, "creators", id, "reviews"), {
-        rating: parseInt(newRating),
+        rating: newRating,
         text: newText.trim(),
         createdAt: new Date(),
         likes: 0,
       });
-      setNewRating("");
+      setNewRating(0);
       setNewText("");
       fetchCreatorData();
     } catch (err) {
@@ -101,9 +102,12 @@ export default function CreatorPage() {
 
   if (!creator) return <div className="p-6">Loading...</div>;
 
+  const averageRating =
+    reviews.reduce((acc, r) => acc + r.rating, 0) / (reviews.length || 1);
+
   return (
     <div className="max-w-3xl mx-auto p-6">
-      {/* 🔙 Simple Avatar and Info */}
+      {/* 🔙 Creator Info */}
       <div className="flex items-center gap-4 mb-4">
         {creator.avatar && (
           <img
@@ -115,36 +119,47 @@ export default function CreatorPage() {
         <div>
           <h1 className="text-2xl font-bold">{creator.name}</h1>
           <p className="text-sm text-gray-600">{creator.bio}</p>
-          {creator.tags?.length > 0 && (
-            <div className="flex gap-2 mt-2 flex-wrap">
-              {creator.tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full"
-                >
-                  {tag}
-                </span>
-              ))}
+          {reviews.length > 0 && (
+            <div className="mt-2">
+              <StarRatings
+                rating={averageRating}
+                starRatedColor="#facc15"
+                numberOfStars={5}
+                starDimension="20px"
+                starSpacing="2px"
+                name="rating"
+              />
+              <p className="text-sm text-gray-500">
+                ({reviews.length} review{reviews.length > 1 ? "s" : ""})
+              </p>
             </div>
           )}
+          <div className="flex gap-2 mt-2 flex-wrap">
+            {creator.tags?.map((tag, i) => (
+              <span
+                key={i}
+                className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* ✍️ Review Form */}
+      {/* ✍️ Submit Review */}
       <form onSubmit={handleReviewSubmit} className="mt-6 space-y-4">
         <div>
-          <select
-            value={newRating}
-            onChange={(e) => setNewRating(e.target.value)}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">⭐ How many stars?</option>
-            <option value="5">⭐⭐⭐⭐⭐ - Perfect</option>
-            <option value="4">⭐⭐⭐⭐ - Great</option>
-            <option value="3">⭐⭐⭐ - Decent</option>
-            <option value="2">⭐⭐ - Meh</option>
-            <option value="1">⭐ - Bad</option>
-          </select>
+          <label className="block text-sm font-semibold">Your Rating:</label>
+          <StarRatings
+            rating={newRating}
+            changeRating={(value) => setNewRating(value)}
+            starRatedColor="#facc15"
+            numberOfStars={5}
+            starDimension="30px"
+            starSpacing="5px"
+            name="newRating"
+          />
         </div>
         <textarea
           value={newText}
@@ -161,7 +176,7 @@ export default function CreatorPage() {
         </button>
       </form>
 
-      {/* 💬 Review Section */}
+      {/* 💬 Reviews */}
       <div className="mt-8">
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-xl font-bold">Reviews</h2>
@@ -178,7 +193,14 @@ export default function CreatorPage() {
 
         {sortedReviews.map((review) => (
           <div key={review.id} className="border-t py-3 space-y-1">
-            <p className="text-yellow-500">⭐ {review.rating}</p>
+            <StarRatings
+              rating={review.rating}
+              starRatedColor="#facc15"
+              numberOfStars={5}
+              starDimension="18px"
+              starSpacing="2px"
+              name={`rating-${review.id}`}
+            />
             <p>{review.text}</p>
             <button
               onClick={() => handleLike(review.id)}
