@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles */
+body {
+  @apply bg-white text-black antialiased;
+  font-family: system-ui, sans-serif;
+}
+
+input,
+button,
+textarea,
+select {
+  @apply focus:outline-none;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
