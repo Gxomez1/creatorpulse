@@ -7,9 +7,8 @@ import {
   orderBy,
   limit,
   startAfter,
-  getDoc,
-  doc,
 } from "firebase/firestore";
+import StarRatings from "react-star-ratings"; // ✅ added star ratings
 
 export default function Home() {
   const [creators, setCreators] = useState([]);
@@ -174,20 +173,26 @@ export default function Home() {
               </div>
             )}
 
-            <div className="mt-2 text-yellow-500 text-sm">
+            <div className="mt-2">
               {creator.reviews?.length > 0 ? (
                 <>
-                  ⭐{" "}
-                  {(
-                    creator.reviews.reduce((acc, r) => acc + r.rating, 0) /
-                    creator.reviews.length
-                  ).toFixed(1)}
-                  <span className="text-gray-500">
-                    {" "}({creator.reviews.length} reviews)
-                  </span>
+                  <StarRatings
+                    rating={
+                      creator.reviews.reduce((acc, r) => acc + r.rating, 0) /
+                      creator.reviews.length
+                    }
+                    starRatedColor="#FFD700"
+                    numberOfStars={5}
+                    starDimension="18px"
+                    starSpacing="2px"
+                    name={`rating-${creator.id}`}
+                  />
+                  <div className="text-xs text-gray-500">
+                    ({creator.reviews.length} reviews)
+                  </div>
                 </>
               ) : (
-                <span className="text-gray-500">⭐ No reviews yet</span>
+                <div className="text-xs text-gray-500">⭐ No reviews yet</div>
               )}
             </div>
 
@@ -219,4 +224,3 @@ export default function Home() {
     </div>
   );
 }
- 
