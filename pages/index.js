@@ -8,7 +8,7 @@ import {
   limit,
   startAfter,
 } from "firebase/firestore";
-import StarRatings from "react-star-ratings"; // ✅ added star ratings
+import StarRatings from "react-star-ratings";
 
 export default function Home() {
   const [creators, setCreators] = useState([]);
@@ -19,6 +19,21 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
+
+  // 🔍 Debug fetch to see if Firestore is loading at all
+  useEffect(() => {
+    const testFetch = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, "creators"));
+        snapshot.forEach((doc) => {
+          console.log("✅ TEST FETCHED CREATOR:", doc.id, doc.data());
+        });
+      } catch (error) {
+        console.error("❌ TEST FETCH ERROR:", error.message);
+      }
+    };
+    testFetch();
+  }, []);
 
   const fetchCreatorsBatch = async (clear = false) => {
     if (loading || !hasMore) return;
@@ -224,5 +239,3 @@ export default function Home() {
     </div>
   );
 }
-
-// Triggering rebuild
