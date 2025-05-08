@@ -20,21 +20,6 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
 
-  // 🔍 Debug fetch to see if Firestore is loading at all
-  useEffect(() => {
-    const testFetch = async () => {
-      try {
-        const snapshot = await getDocs(collection(db, "creators"));
-        snapshot.forEach((doc) => {
-          console.log("✅ TEST FETCHED CREATOR:", doc.id, doc.data());
-        });
-      } catch (error) {
-        console.error("❌ TEST FETCH ERROR:", error.message);
-      }
-    };
-    testFetch();
-  }, []);
-
   const fetchCreatorsBatch = async (clear = false) => {
     if (loading || !hasMore) return;
     setLoading(true);
