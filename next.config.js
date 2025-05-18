@@ -3,8 +3,8 @@ const nextConfig = {
     async rewrites() {
       return [
         {
-          source: '/sitemap.xml',
-          destination: '/api/sitemap',
+          source: '/sitemap.xml',         // path Google tries
+          destination: '/api/sitemap/',   // ✅ needs this trailing slash
         },
       ];
     },
