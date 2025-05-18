@@ -16,7 +16,13 @@ function MyApp({ Component, pageProps }) {
           content="Discover and rate top creators from OnlyFans, PH, and cam. Real reviews, spicy insights, and trending stars all in one place."
         />
         <meta name="theme-color" content="#ff1a1a" />
-        <link rel="icon" href="/favicon.ico" />
+
+        {/* ✅ Full Favicon & Manifest Setup */}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
       {/* ✅ Google Analytics */}
