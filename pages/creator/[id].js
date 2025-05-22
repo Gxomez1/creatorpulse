@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { db } from "../../utils/firebase";
@@ -106,111 +107,121 @@ export default function CreatorPage() {
     reviews.reduce((acc, r) => acc + r.rating, 0) / (reviews.length || 1);
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      {/* 🔙 Creator Info */}
-      <div className="flex items-center gap-4 mb-4">
-        {creator.avatar && (
-          <img
-            src={creator.avatar}
-            alt={creator.name}
-            className="w-20 h-20 rounded-full object-cover border"
-          />
-        )}
-        <div>
-          <h1 className="text-2xl font-bold">{creator.name}</h1>
-          <p className="text-sm text-gray-600">{creator.bio}</p>
-          {reviews.length > 0 && (
-            <div className="mt-2">
-              <StarRatings
-                rating={averageRating}
-                starRatedColor="#facc15"
-                numberOfStars={5}
-                starDimension="20px"
-                starSpacing="2px"
-                name="rating"
-              />
-              <p className="text-sm text-gray-500">
-                ({reviews.length} review{reviews.length > 1 ? "s" : ""})
-              </p>
-            </div>
+    <>
+      <Head>
+        <title>{creator?.name || "Creator"} - SpicyRate</title>
+        <link
+          rel="canonical"
+          href={`https://spicyrate.app/creator/${creator?.id || id}`}
+        />
+      </Head>
+
+      <div className="max-w-3xl mx-auto p-6">
+        {/* 🔙 Creator Info */}
+        <div className="flex items-center gap-4 mb-4">
+          {creator.avatar && (
+            <img
+              src={creator.avatar}
+              alt={creator.name}
+              className="w-20 h-20 rounded-full object-cover border"
+            />
           )}
-          <div className="flex gap-2 mt-2 flex-wrap">
-            {creator.tags?.map((tag, i) => (
-              <span
-                key={i}
-                className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
+          <div>
+            <h1 className="text-2xl font-bold">{creator.name}</h1>
+            <p className="text-sm text-gray-600">{creator.bio}</p>
+            {reviews.length > 0 && (
+              <div className="mt-2">
+                <StarRatings
+                  rating={averageRating}
+                  starRatedColor="#facc15"
+                  numberOfStars={5}
+                  starDimension="20px"
+                  starSpacing="2px"
+                  name="rating"
+                />
+                <p className="text-sm text-gray-500">
+                  ({reviews.length} review{reviews.length > 1 ? "s" : ""})
+                </p>
+              </div>
+            )}
+            <div className="flex gap-2 mt-2 flex-wrap">
+              {creator.tags?.map((tag, i) => (
+                <span
+                  key={i}
+                  className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ✍️ Submit Review */}
-      <form onSubmit={handleReviewSubmit} className="mt-6 space-y-4">
-        <div>
-          <label className="block text-sm font-semibold">Your Rating:</label>
-          <StarRatings
-            rating={newRating}
-            changeRating={(value) => setNewRating(value)}
-            starRatedColor="#facc15"
-            numberOfStars={5}
-            starDimension="30px"
-            starSpacing="5px"
-            name="newRating"
-          />
-        </div>
-        <textarea
-          value={newText}
-          onChange={(e) => setNewText(e.target.value)}
-          className="border p-2 rounded w-full"
-          placeholder="Write your review..."
-        />
-        <button
-          type="submit"
-          disabled={submitting}
-          className="bg-black text-white px-4 py-2 rounded"
-        >
-          {submitting ? "Submitting..." : "Submit Review"}
-        </button>
-      </form>
-
-      {/* 💬 Reviews */}
-      <div className="mt-8">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-xl font-bold">Reviews</h2>
-          <select
-            value={sortType}
-            onChange={(e) => setSortType(e.target.value)}
-            className="text-sm border p-1 rounded"
-          >
-            <option value="most-liked">🔥 Most Liked</option>
-            <option value="newest">🕒 Newest</option>
-            <option value="top-rated">⭐ Top Rated</option>
-          </select>
-        </div>
-
-        {sortedReviews.map((review) => (
-          <div key={review.id} className="border-t py-3 space-y-1">
+        {/* ✍️ Submit Review */}
+        <form onSubmit={handleReviewSubmit} className="mt-6 space-y-4">
+          <div>
+            <label className="block text-sm font-semibold">Your Rating:</label>
             <StarRatings
-              rating={review.rating}
+              rating={newRating}
+              changeRating={(value) => setNewRating(value)}
               starRatedColor="#facc15"
               numberOfStars={5}
-              starDimension="18px"
-              starSpacing="2px"
-              name={`rating-${review.id}`}
+              starDimension="30px"
+              starSpacing="5px"
+              name="newRating"
             />
-            <p>{review.text}</p>
-            <button
-              onClick={() => handleLike(review.id)}
-              className="text-sm text-red-500 hover:underline"
-            >
-              🔥 {review.likes || 0} likes
-            </button>
           </div>
-        ))}
+          <textarea
+            value={newText}
+            onChange={(e) => setNewText(e.target.value)}
+            className="border p-2 rounded w-full"
+            placeholder="Write your review..."
+          />
+          <button
+            type="submit"
+            disabled={submitting}
+            className="bg-black text-white px-4 py-2 rounded"
+          >
+            {submitting ? "Submitting..." : "Submit Review"}
+          </button>
+        </form>
+
+        {/* 💬 Reviews */}
+        <div className="mt-8">
+          <div className="flex justify-between items-center mb-2">
+            <h2 className="text-xl font-bold">Reviews</h2>
+            <select
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
+              className="text-sm border p-1 rounded"
+            >
+              <option value="most-liked">🔥 Most Liked</option>
+              <option value="newest">🕒 Newest</option>
+              <option value="top-rated">⭐ Top Rated</option>
+            </select>
+          </div>
+
+          {sortedReviews.map((review) => (
+            <div key={review.id} className="border-t py-3 space-y-1">
+              <StarRatings
+                rating={review.rating}
+                starRatedColor="#facc15"
+                numberOfStars={5}
+                starDimension="18px"
+                starSpacing="2px"
+                name={`rating-${review.id}`}
+              />
+              <p>{review.text}</p>
+              <button
+                onClick={() => handleLike(review.id)}
+                className="text-sm text-red-500 hover:underline"
+              >
+                🔥 {review.likes || 0} likes
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
