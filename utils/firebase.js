@@ -1,19 +1,17 @@
+// firebase.js for Creator Pulse
+
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET, // ✅ Must be appspot.com in Vercel
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyD4SdPYy4eeua1Fu0KoUUI4mnDoZpqzbgs",
+  authDomain: "creator-pulse-app.firebaseapp.com",
+  projectId: "creator-pulse-app",
+  storageBucket: "creator-pulse-app.appspot.com",
+  messagingSenderId: "612357983696",
+  appId: "1:612357983696:web:bee77c08e609a28e693dd5"
 };
 
-// ✅ Prevent duplicate initialization
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-
-const db = getFirestore(app);
-const storage = getStorage(app);
-
-export { db, storage };
+// ✅ Prevent duplicate Firebase app initialization
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+export const db = getFirestore(app);

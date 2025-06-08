@@ -8,7 +8,7 @@ export default function Header() {
 
   const handleComingSoon = (e) => {
     e.preventDefault();
-    alert("Coming Soon 🌶️");
+    alert("Coming Soon ⚡");
   };
 
   return (
@@ -16,15 +16,15 @@ export default function Header() {
       <div className="flex items-center justify-between p-4 max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/spicyrate-logo.png"
-            alt="SpicyRate Logo"
+            src="/creator-icon.png"
+            alt="Creator Pulse Icon"
             width={32}
             height={32}
             className="object-contain"
           />
           <span className="text-xl font-bold">
-            <span className="text-red-600">Spicy</span>
-            <span className="text-black">Rate</span>
+            <span className="text-red-600">Creator</span>
+            <span className="text-black">Pulse</span>
           </span>
         </Link>
 

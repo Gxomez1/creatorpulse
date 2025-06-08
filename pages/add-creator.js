@@ -8,23 +8,14 @@ import { db } from "../utils/firebase";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import imageCompression from "browser-image-compression";
 
+// ✅ Professional, safe tag list
 const allowedTags = [
-  // Platform Verification Tags
-  "OnlyFans Verified", "PH Verified", "Cam Verified",
-  // Status Tags
-  "Top Creator", "Top 0.1%", "Popular", "Retired",
-  // Body Type Tags
-  "Petite", "Curvy", "Thick", "Thick Thighs", "Busty", "Big Tits", "Big Ass", "Booty Queen",
-  // Ethnicity & Appearance Tags
-  "Latina", "Ebony", "Asian", "Exotic", "Middle Eastern", "Blonde", "Brunette", "Redhead", "Tattoos", "Piercings", "Tall",
-  // Style & Vibe Tags
-  "Natural", "Fitness", "Fitness Model", "Influencer", "Glamorous", "Elegant", "Yoga Pants", "Gamer Girl", "Wild", "Energy", "Sensual", "Seductive", "Shy Girl", "MILF",
-  // Content Type Tags
-  "Softcore", "Hardcore", "Amateur", "Professional", "Solo", "Girl/Girl", "Solo Content", "Couple Content", "Public", "Public Play",
-  // Fantasy / Persona Tags
-  "Mommy", "Teacher", "Nurse", "Cheerleader", "College Girl", "Party Girl", "Nerdy", "Submissive", "Dominatrix", "Cosplay", "First Timer",
-  // Fetish & Niche Tags
-  "Dirty Talk", "Teasing", "Feet", "BDSM", "GFE", "Roleplay", "ASMR", "JOI"
+  "Verified", "Trending", "Top Creator", "Popular",
+  "Content Creator", "Vlogger", "Model", "Influencer",
+  "Fitness", "Lifestyle", "Beauty", "Gamer", "Artist",
+  "Entrepreneur", "Mentor", "Teacher", "Coach",
+  "Creative", "Professional", "Wellness", "Minimalist",
+  "Fashion", "Travel", "Tech-Savvy", "Student"
 ];
 
 export default function AddCreatorPage() {
@@ -115,7 +106,7 @@ export default function AddCreatorPage() {
         trending,
       });
 
-      alert("🔥 Creator added successfully!");
+      alert("✅ Creator added successfully!");
       router.push("/");
     } catch (err) {
       console.error("❌ Upload error:", err);
@@ -127,7 +118,9 @@ export default function AddCreatorPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6 text-red-600">Add New Creator</h1>
+      <h1 className="text-2xl font-bold mb-6 text-[#e11d48]">
+        Add Creator to Creator Pulse
+      </h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <input
           type="text"
@@ -201,7 +194,7 @@ export default function AddCreatorPage() {
 
         <div className="flex flex-wrap gap-2">
           {tags.map((tag, i) => (
-            <span key={i} className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">
+            <span key={i} className="text-xs bg-rose-100 text-red-700 px-2 py-1 rounded-full">
               {tag}
             </span>
           ))}
@@ -215,7 +208,7 @@ export default function AddCreatorPage() {
         <button
           type="submit"
           disabled={submitting}
-          className={`w-full flex items-center justify-center gap-2 bg-red-600 text-white p-3 rounded transition ${
+          className={`w-full flex items-center justify-center gap-2 bg-[#e11d48] text-white p-3 rounded transition ${
             submitting ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

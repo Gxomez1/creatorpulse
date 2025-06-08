@@ -10,6 +10,7 @@
     "browser-image-compression": "^2.0.2",
     "cloudinary": "^2.6.0",
     "firebase": "^10.7.1",
+    "firebase-admin": "^13.4.0",
     "lucide-react": "^0.487.0",
     "next": "13.4.19",
     "react": "^18.2.0",

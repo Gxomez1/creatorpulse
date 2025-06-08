@@ -137,13 +137,12 @@ export default function Home() {
             onChange={(e) => setSearch(e.target.value)}
             className="p-2 border rounded"
           />
-          <button
-            disabled
-            title="Coming Soon 🌶️"
-            className="bg-[#ff1a1a] text-white px-4 py-2 rounded cursor-not-allowed flex items-center gap-2 font-semibold hover:brightness-110"
+          <a
+            href="/add-creator"
+            className="bg-[#e11d48] text-white px-4 py-2 rounded flex items-center gap-2 font-semibold hover:brightness-110"
           >
-            🔒 Add Creator
-          </button>
+            ➕ Add Creator
+          </a>
         </div>
       </div>
 

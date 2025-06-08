@@ -1,26 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import Image from "next/image";
 
 export default function Splash({ onFinish }) {
-  const [visible, setVisible] = useState(true);
-
   useEffect(() => {
     const timer = setTimeout(() => {
-      setVisible(false);
-      onFinish(); // Hide splash after 2s
+      onFinish?.(); // Optional chaining avoids crash if onFinish is undefined
     }, 2000);
-
     return () => clearTimeout(timer);
-  }, []);
+  }, [onFinish]);
 
   return (
-    visible && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
-        <img
-          src="/spicyrate-horizontal-logo.png"
-          alt="SpicyRate Splash"
-          className="w-64 sm:w-72 md:w-80 animate-pulse"
-        />
-      </div>
-    )
+    <div className="flex flex-col items-center justify-center h-screen bg-white text-[#e11d48]">
+      <Image
+        src="/creator-icon.png"
+        alt="Creator Pulse Splash"
+        width={64}
+        height={64}
+        className="mb-4"
+      />
+      <h1 className="text-xl font-bold">Creator Pulse</h1>
+    </div>
   );
 }
