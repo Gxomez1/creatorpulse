@@ -1,40 +1,39 @@
-# creatorpulse
-A modern creator review app built with React, Firebase, and Tailwind CSS. Filter, search, and explore top digital creators in real-time.
-# CreatorPulse 🎯
+# CreatorPulse 🔥
 
-**CreatorPulse** is a modern creator review app built with **React (Next.js)**, **Firebase Firestore**, and **Tailwind CSS**. This is a full-stack portfolio project designed to demonstrate dynamic UI handling, real-time database integration, and clean frontend architecture.
+CreatorPulse is a modern creator review platform built with **React (Next.js)**, **Firebase Firestore**, **Tailwind CSS**, and optional **Cloudinary** integration.
 
-## 🚀 Features
+This app lets users **rate, review, and explore digital creators** across multiple platforms in real-time, with dynamic tag filters, creator cards, and detailed review pages.
 
-- 🔍 **Search, Filter, and Sort Creators**
-- ⭐️ **Star Ratings and Review Previews**
-- 🔥 **Trending Badge and Tag System**
-- 📄 **Add Creator Page (UI Only for Demo)**
-- 🌐 **Responsive Layout with Tailwind CSS**
-- ⏱️ **Real-Time Firebase Data Loading**
-- 💅 **Custom Splash Screen and Clean Aesthetics**
+---
 
-## 🧱 Built With
+## 🚀 Live Demo
 
-- **React / Next.js**
+👉 [https://creatorpulse-drab.vercel.app](https://creatorpulse-drab.vercel.app)
+
+---
+
+## ✨ Features
+
+- 🔍 Search, Filter, and Sort Creators
+- ⭐ Star Ratings and Review Previews
+- 🔥 Trending Badge + Tag System
+- 📝 Add Creator Page (UI only for demo)
+- 🌐 Responsive Layout with Tailwind CSS
+- ⚡ Real-Time Firebase Data Loading
+
+---
+
+## 🧠 Built With
+
+- **Next.js**
 - **Firebase Firestore**
 - **Tailwind CSS**
-- **Cloudinary** (disabled in this demo)
-- **Modular Components & Clean Folder Structure**
+- **Cloudinary** (currently disabled)
+- Modular Components & Clean Folder Structure
 
-## 🛠️ How It Works
+---
 
-- Creator data is fetched from Firestore with pagination
-- Review previews and tags are dynamically mapped
-- UI built with accessibility and UX in mind
-- Splash screen adds polish for portfolio demos
+## ❗ Why GitHub Pages shows README
 
-## ⚠️ Notes
-
-- **This is a demo portfolio project** (not public-facing or commercial)
-- Creator data is dummy/test content
-- Firebase keys are connected to a test Firestore project
-- Cloudinary uploads are disabled in this version
-
-## 📁 Folder Structure
+This project needs **dynamic Firebase features**, so it won’t work on GitHub Pages (which only supports static content). That’s why it’s deployed on **Vercel**, a full-stack cloud platform for modern web apps.
 
